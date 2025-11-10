@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kaave Warranty Registration</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+      :root {
+        --primary: rgb(239, 122, 27);
+        --secondary: #ffffff;
+        --text: #333;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: linear-gradient(135deg, var(--secondary), #fef6ef);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 20px;
+        flex-direction: column;
+      }
+
+      /* Welcome Animation Screen */
+      #welcomeScreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 600;
+        z-index: 10;
+        /* Remove slideUp animation from here */
+        overflow: hidden;
+      }
+
+      /* Brush paint reveal animation for welcome text */
+      #welcomeScreen span {
+        display: inline-block;
+        -webkit-mask-image: linear-gradient(
+          to right,
+          transparent 0%,
+          black 100%
+        );
+        mask-image: linear-gradient(to right, transparent 0%, black 100%);
+        mask-size: 200% 100%;
+        mask-position: 200% 0;
+        -webkit-mask-size: 200% 100%;
+        -webkit-mask-position: 200% 0;
+        animation: brushReveal 2s ease forwards;
+      }
+
+      @keyframes brushReveal {
+        0% {
+          opacity: 0;
+          -webkit-mask-position: 200% 0;
+          mask-position: 200% 0;
+        }
+        80% {
+          opacity: 1;
+          -webkit-mask-position: 0 0;
+          mask-position: 0 0;
+        }
+        100% {
+          opacity: 1;
+          -webkit-mask-position: 0 0;
+          mask-position: 0 0;
+        }
+      }
+
+      /* Screen wipe transition animation */
+      #welcomeScreen.wipe {
+        animation: slideUp 1.5s ease forwards;
+        animation-delay: 2s;
+      }
+
+      @keyframes slideUp {
+        0% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        90% {
+          transform: translateY(-100%);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100%);
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+
+      /* Form Container */
+      .container {
+        background: var(--secondary);
+        border-radius: 15px;
+        box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.1);
+        padding: 40px 45px;
+        width: 400px;
+        max-width: 100%;
+        text-align: center;
+        opacity: 0;
+        transform: scale(0.85);
+        animation: fadeScaleIn 1s ease forwards;
+        animation-delay: 5.5s;
+        z-index: 1;
+      }
+
+      @keyframes fadeScaleIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.85);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Brand name above logo */
+      .brand-name {
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* Logo fade and scale in */
+      .logo {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 25px;
+        border-radius: 0;
+        object-fit: contain;
+        opacity: 0;
+        transform: scale(0.85);
+        animation: logoFadeScaleIn 1s ease forwards;
+        animation-delay: 5.5s;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      @keyframes logoFadeScaleIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.85);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      h2 {
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-weight: 600;
+        font-size: 1.8rem;
+      }
+
+      p {
+        color: #666;
+        margin-bottom: 25px;
+        font-size: 15px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 14px 15px;
+        margin: 10px 0;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 15px;
+        transition: all 0.3s;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 6px rgba(239, 122, 27, 0.5);
+      }
+
+      button {
+        width: 100%;
+        padding: 14px;
+        margin-top: 18px;
+        background-color: var(--primary);
+        color: var(--secondary);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: background 0.3s, transform 0.2s;
+      }
+
+      button:hover {
+        background-color: rgb(230, 100, 15);
+        transform: translateY(-2px);
+      }
+
+      .captcha-box {
+        margin-top: 20px;
+      }
+
+      .captcha-img {
+        display: block;
+        max-width: 60%;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .success {
+        color: green;
+        margin-top: 15px;
+        display: none;
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      /* WhatsApp number input with +91 prefix */
+      .input-prefix-group {
+        position: relative;
+        width: 100%;
+        margin: 10px 0;
+      }
+      .input-prefix-group .input-prefix {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #888;
+        font-size: 16px;
+        padding-left: 18px;
+        pointer-events: none;
+        z-index: 2;
+        letter-spacing: 0.5px;
+        font-weight: 500;
+      }
+      .input-prefix-group input[type="tel"] {
+        padding-left: 54px !important; /* override generic input padding for prefix space */
+      }
+
+      /* Footer text styling */
+      .footer-text {
+        margin-top: 20px;
+        color: #666;
+        font-size: 14px;
+        text-align: center;
+        font-weight: 400;
+        font-family: "Poppins", sans-serif;
+        user-select: none;
+      }
+
+      /* Responsive */
+      @media (max-width: 480px) {
+        body {
+          padding: 15px;
+        }
+
+        #welcomeScreen {
+          font-size: 1.8rem;
+          /* Remove animation-delay here */
+        }
+
+        .container {
+          padding: 30px 25px;
+          width: 100%;
+          max-width: 360px;
+          border-radius: 12px;
+          animation-delay: 5.5s;
+        }
+
+        .brand-name {
+          font-size: 1.8rem;
+          margin-bottom: 12px;
+        }
+
+        .logo {
+          max-width: 100%;
+          height: auto;
+          margin-bottom: 20px;
+          animation-delay: 5.5s;
+          border-radius: 0;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+          margin-bottom: 12px;
+        }
+
+        p {
+          font-size: 14px;
+          margin-bottom: 20px;
+        }
+
+        input,
+        select {
+          padding: 12px 14px;
+          font-size: 14px;
+          margin: 8px 0;
+        }
+
+        button {
+          padding: 12px;
+          font-size: 15px;
+          margin-top: 15px;
+        }
+
+        .captcha-box {
+          margin-top: 15px;
+        }
+
+        .success {
+          font-size: 14px;
+          margin-top: 12px;
+        }
+
+        .input-prefix-group .input-prefix {
+          font-size: 14px;
+          padding-left: 14px;
+        }
+        .input-prefix-group input[type="tel"] {
+          padding-left: 44px !important;
+        }
+
+        .footer-text {
+          font-size: 13px;
+          margin-top: 15px;
+        }
+      }
+
+      /* Large screen scaling and centering fix */
+      @media (min-width: 1200px) {
+        body {
+          padding: 40px;
+        }
+
+        .container {
+          width: 450px;
+          padding: 50px 55px;
+          border-radius: 18px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+          animation-delay: 5.5s;
+        }
+
+        .brand-name {
+          font-size: 2.6rem;
+          margin-bottom: 20px;
+        }
+
+        .logo {
+          max-width: 100%;
+          height: auto;
+          margin-bottom: 30px;
+          animation-delay: 5.5s;
+          border-radius: 0;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Welcome Animation -->
+    <div id="welcomeScreen"><span>Welcome to Kaave ☕</span></div>
+
+    <!-- Main Form -->
+    <div class="container" id="mainForm">
+      <div class="brand-name">Kaave</div>
+      <img src="logo.png" alt="Kaave Logo" class="logo" id="logo" />
+      <h2>Warranty Registration</h2>
+      <p>Please fill in your details below.</p>
+
+      <form id="warrantyForm">
+        <input type="text" id="name" placeholder="Full Name" required />
+        <div class="input-prefix-group">
+          <span class="input-prefix">+91</span>
+          <input
+            type="tel"
+            id="whatsapp"
+            placeholder="WhatsApp Number"
+            required
+            inputmode="numeric"
+            pattern="[0-9]{10}"
+            maxlength="10"
+            autocomplete="tel"
+          />
+        </div>
+        <input type="text" id="city" placeholder="City" required />
+        <select id="product" required>
+          <option value="">Select Product</option>
+          <option value="Chimney">Chimney</option>
+          <option value="Hob">Hob</option>
+          <option value="Cooktop">Cooktop</option>
+          <option value="Water Purifier">Water Purifier</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <div class="captcha-box">
+          <img id="captchaImage" class="captcha-img" src="" alt="captcha" />
+          <input
+            type="text"
+            id="captchaInput"
+            placeholder="Enter code shown above"
+            required
+          />
+        </div>
+
+        <button type="submit">Submit</button>
+        <p id="successMessage" class="success">✅ Submitted successfully!</p>
+      </form>
+    </div>
+
+    <div class="footer-text">Register your Jutti with the warranty.</div>
+
+    <script>
+      const scriptURL = "PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE";
+
+      const captchas = [
+        { img: "captcha/code1.png", code: "AB12" },
+        { img: "captcha/code2.png", code: "CX45" },
+        { img: "captcha/code3.png", code: "RD78" },
+        { img: "captcha/code4.png", code: "LM90" },
+        { img: "captcha/code5.png", code: "PQ34" },
+      ];
+
+      let selectedCaptcha;
+
+      function loadCaptcha() {
+        selectedCaptcha = captchas[Math.floor(Math.random() * captchas.length)];
+        document.getElementById("captchaImage").src = selectedCaptcha.img;
+      }
+
+      loadCaptcha();
+
+      // WhatsApp input validation: restrict to 10 digits, numeric only
+      const whatsappInput = document.getElementById("whatsapp");
+      if (whatsappInput) {
+        whatsappInput.addEventListener("input", function (e) {
+          let val = this.value.replace(/\D/g, ""); // Remove non-digits
+          if (val.length > 10) val = val.slice(0, 10);
+          this.value = val;
+        });
+        whatsappInput.addEventListener("paste", function (e) {
+          // Ensure pasted content is trimmed to 10 digits and numeric only
+          e.preventDefault();
+          let paste = (e.clipboardData || window.clipboardData).getData("text");
+          paste = paste.replace(/\D/g, "").slice(0, 10);
+          document.execCommand("insertText", false, paste);
+        });
+      }
+
+      // Synchronize welcome text brush reveal and screen wipe transition
+      const welcomeScreen = document.getElementById("welcomeScreen");
+      const logo = document.getElementById("logo");
+      const container = document.querySelector(".container");
+
+      // After brush reveal animation ends on the span inside welcomeScreen
+      const welcomeTextSpan = welcomeScreen.querySelector("span");
+      welcomeTextSpan.addEventListener("animationend", () => {
+        // Add wipe animation class to welcomeScreen to trigger slideUp after brush reveal
+        welcomeScreen.classList.add("wipe");
+      });
+
+      // After welcomeScreen slideUp animation ends, do nothing with logo (keep it visible)
+
+      document
+        .getElementById("warrantyForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const entered = document.getElementById("captchaInput").value.trim();
+          if (entered !== selectedCaptcha.code) {
+            alert("❌ Verification failed! Please try again.");
+            loadCaptcha();
+            document.getElementById("captchaInput").value = "";
+            return;
+          }
+
+          const formData = {
+            name: document.getElementById("name").value,
+            whatsapp: document.getElementById("whatsapp").value,
+            city: document.getElementById("city").value,
+            product: document.getElementById("product").value,
+          };
+
+          const response = await fetch(scriptURL, {
+            method: "POST",
+            body: JSON.stringify(formData),
+          });
+
+          if (response.ok) {
+            document.getElementById("successMessage").style.display = "block";
+            document.getElementById("warrantyForm").reset();
+            loadCaptcha();
+          } else {
+            alert("⚠️ Something went wrong. Try again!");
+          }
+        });
+    </script>
+  </body>
+</html>
