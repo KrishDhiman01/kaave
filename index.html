@@ -36,7 +36,6 @@
         overflow-x: hidden;
         overflow-y: auto;
         padding: 20px;
-        flex-direction: column;
       }
 
       /* Welcome Animation Screen */
@@ -139,15 +138,6 @@
           opacity: 1;
           transform: scale(1);
         }
-      }
-
-      /* Brand name above logo */
-      .brand-name {
-        color: var(--primary);
-        font-weight: 700;
-        font-size: 2.2rem;
-        margin-bottom: 15px;
-        font-family: "Poppins", sans-serif;
       }
 
       /* Logo fade and scale in */
@@ -273,17 +263,6 @@
         padding-left: 54px !important; /* override generic input padding for prefix space */
       }
 
-      /* Footer text styling */
-      .footer-text {
-        margin-top: 20px;
-        color: #666;
-        font-size: 14px;
-        text-align: center;
-        font-weight: 400;
-        font-family: "Poppins", sans-serif;
-        user-select: none;
-      }
-
       /* Responsive */
       @media (max-width: 480px) {
         body {
@@ -301,11 +280,6 @@
           max-width: 360px;
           border-radius: 12px;
           animation-delay: 5.5s;
-        }
-
-        .brand-name {
-          font-size: 1.8rem;
-          margin-bottom: 12px;
         }
 
         .logo {
@@ -358,11 +332,6 @@
         .input-prefix-group input[type="tel"] {
           padding-left: 44px !important;
         }
-
-        .footer-text {
-          font-size: 13px;
-          margin-top: 15px;
-        }
       }
 
       /* Large screen scaling and centering fix */
@@ -377,11 +346,6 @@
           border-radius: 18px;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
           animation-delay: 5.5s;
-        }
-
-        .brand-name {
-          font-size: 2.6rem;
-          margin-bottom: 20px;
         }
 
         .logo {
@@ -403,7 +367,6 @@
 
     <!-- Main Form -->
     <div class="container" id="mainForm">
-      <div class="brand-name">Kaave</div>
       <img src="logo.png" alt="Kaave Logo" class="logo" id="logo" />
       <h2>Warranty Registration</h2>
       <p>Please fill in your details below.</p>
@@ -447,8 +410,6 @@
         <p id="successMessage" class="success">✅ Submitted successfully!</p>
       </form>
     </div>
-
-    <div class="footer-text">Register your Jutti with the warranty.</div>
 
     <script>
       const scriptURL = "PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE";
