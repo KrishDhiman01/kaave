@@ -389,11 +389,11 @@
         <input type="text" id="city" placeholder="City" required />
         <select id="product" required>
           <option value="">Select Product</option>
-          <option value="Chimney">Chimney</option>
-          <option value="Hob">Hob</option>
-          <option value="Cooktop">Cooktop</option>
-          <option value="Water Purifier">Water Purifier</option>
-          <option value="Other">Other</option>
+          <option value="Chimney">Jutti 1</option>
+          <option value="Hob">Jutti 2</option>
+          <option value="Cooktop">Jutti 3</option>
+          <option value="Water Purifier">Jutti 4</option>
+          <option value="Other">Jutti 5</option>
         </select>
 
         <div class="captcha-box">
@@ -469,7 +469,7 @@
 
           const entered = document.getElementById("captchaInput").value.trim();
           if (entered !== selectedCaptcha.code) {
-            alert("❌ Verification failed! Please try again.");
+            alert("❌ Invalid Captcha Please Try Again");
             loadCaptcha();
             document.getElementById("captchaInput").value = "";
             return;
