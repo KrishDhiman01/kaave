@@ -451,7 +451,8 @@
       select {
         width: 100%;
         padding: 16px 18px 16px 50px;
-        margin: 12px 0;
+        margin-top: 18px;
+        margin-bottom: 0;
         border-radius: 14px;
         border: 2px solid #f5e6d3;
         font-size: 1rem;
@@ -460,12 +461,18 @@
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 2px 8px rgba(239, 122, 27, 0.05);
         position: relative;
+        display: block;
+        box-sizing: border-box;
       }
 
       /* Input field icons */
       .input-wrapper {
         position: relative;
         width: 100%;
+        margin-bottom: 22px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
       }
 
       .input-icon {
@@ -524,6 +531,7 @@
       .input-wrapper input,
       .input-wrapper select {
         width: 100%;
+        margin: 0;
       }
 
       button {
@@ -729,8 +737,12 @@
       .input-prefix-group {
         position: relative;
         width: 100%;
-        margin: 12px 0;
+        margin-bottom: 22px;
+        margin-top: 0;
         animation: fadeSlideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
       }
 
       .input-prefix-group .input-prefix {
@@ -923,13 +935,15 @@
       }
 
       /* Responsive */
-      @media (max-width: 480px) {
+      @media (max-width: 600px) {
         .container {
-          padding: 35px 25px;
+          padding: 35px 10px;
           border-radius: 20px;
           background: rgba(255, 255, 255, 0.98);
+          width: 100%;
+          min-width: 0;
+          max-width: 98vw;
         }
-
         h2 {
           font-size: 1.8rem;
         }
@@ -942,17 +956,20 @@
         .logo {
           max-width: 140px;
         }
-
         input,
         select {
-          padding: 14px 16px;
-          font-size: 0.95rem;
+          padding: 14px 14px 14px 44px;
+          font-size: 0.98rem;
+          margin-top: 15px;
+        }
+        .input-wrapper,
+        .input-prefix-group {
+          margin-bottom: 18px;
         }
         button {
           padding: 15px;
           font-size: 1rem;
         }
-
         .success-screen h1 {
           font-size: 1.8rem;
         }
@@ -1030,7 +1047,7 @@
           <label for="city">City</label>
         </div>
 
-        <div class="input-wrapper">
+        <div class="input-wrapper" style="z-index: 1">
           <span class="input-icon">👡</span>
           <select id="product" required>
             <option value="">Select Product</option>
