@@ -958,9 +958,14 @@
         }
         input,
         select {
-          padding: 14px 14px 14px 44px;
+          /* Reduce left padding for better spacing on mobile, especially with icons/prefix */
+          padding: 14px 12px 14px 38px;
           font-size: 0.98rem;
           margin-top: 15px;
+        }
+        /* WhatsApp input with prefix: reduce left padding further for mobile */
+        .input-prefix-group input[type="tel"] {
+          padding-left: 70px !important;
         }
         .input-wrapper,
         .input-prefix-group {
@@ -978,6 +983,43 @@
         }
         .success-icon {
           font-size: 3rem;
+        }
+        /* Adjust floating label for input-wrapper (normal fields) */
+        .input-wrapper label {
+          left: 38px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 1rem;
+        }
+        .input-wrapper input:focus ~ label,
+        .input-wrapper input:not(:placeholder-shown) ~ label,
+        .input-wrapper select:focus ~ label,
+        .input-wrapper select:not([value=""]) ~ label {
+          top: -10px;
+          left: 8px;
+          font-size: 0.75rem;
+        }
+        /* Adjust floating label for input-prefix-group (WhatsApp input) */
+        .input-prefix-group label {
+          left: 70px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 1rem;
+        }
+        .input-prefix-group input:focus ~ label,
+        .input-prefix-group input:not(:placeholder-shown) ~ label {
+          top: -10px;
+          left: 8px;
+          font-size: 0.75rem;
+        }
+        /* Adjust icon and prefix for less left spacing */
+        .input-icon {
+          left: 12px;
+          font-size: 1.1rem;
+        }
+        .input-prefix-group .input-prefix {
+          left: 38px;
+          font-size: 0.95rem;
         }
       }
     </style>
